@@ -1,0 +1,47 @@
+---
+title: "Untitled"
+author: "Nick Anderson"
+date: "October 17, 2017"
+output: flexdashboard::flex_dashboard
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(flexdashboard)
+library(ggplot2)
+library(DT)
+data <- read.csv("formative1-results-DI.csv")
+names(data)
+```
+
+
+##Column 1 
+###Carat
+
+```{r}
+ggplot(diamonds, aes(carat)) + geom_histogram(binwidth = 0.1)
+```
+
+###Cut
+
+```{r}
+ggplot(diamonds, aes(cut)) + geom_bar()
+```
+
+###Color
+
+```{r}
+ggplot(diamonds, aes(color)) + geom_bar()
+```
+
+## Column 2
+
+###The largest diamonds
+
+```{r Data table}
+data %>%
+  select(pull.request, attached.rmd, Q1:Q10) %>%
+  DT::datatable()
+```
+
