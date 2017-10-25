@@ -1,0 +1,57 @@
+---
+title: "HUDK4050 Group Project"
+author: "yq2205"
+date: "10/21/2017"
+output: html_document
+---
+
+```{r}
+D1 <- read.csv("formative1-results-DI.csv")
+
+library(dplyr)
+library(ggplot2)
+D2 <- dplyr::select(D1,starts_with("Q"))
+
+
+```
+#Calculate how many people attempted
+```{r}
+Q1<-length(which(D2$Q1 != "Did not answer")) 
+Q2<-length(which(D2$Q2 != "Did not answer")) 
+Q3<-length(which(D2$Q3 != "Did not answer")) 
+Q4<-length(which(D2$Q4 != "Did not answer")) 
+Q5<-length(which(D2$Q5 != "Did not answer")) 
+Q6<-length(which(D2$Q6 != "Did not answer")) 
+Q7<-length(which(D2$Q7 != "Did not answer")) 
+Q8<-length(which(D2$Q8 != "Did not answer")) 
+Q9<-length(which(D2$Q9 != "Did not answer")) 
+Q10<-length(which(D2$Q10 != "Did not answer")) 
+Q11<-length(which(D2$Q11 != "Did not answer")) 
+Q12<-length(which(D2$Q12 != "Did not answer")) 
+Q13<-length(which(D2$Q13 != "Did not answer")) 
+Q14<-length(which(D2$Q14 != "Did not answer")) 
+
+```
+#generate a new data frame for attempt rate
+```{r}
+D3<- c(Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8,Q9, Q10, Q11, Q12, Q13,Q14)
+D3<-as.data.frame(D3)
+names(D3)<-c("num")
+D3$attempt_rate<-D3$num/29
+D3$questions<-c('Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8','Q9', 'Q10', 'Q11', 'Q12', 'Q13','Q14')
+```
+
+#line chart
+```{r}
+D3_questions <- table(D3$questions)
+questions_levels <- names(D3_questions)[order(D3_questions)]
+D3$questions<- factor(D3$questions, levels =questions_levels)
+ggplot(D3, aes(x=D3$questions, y=D3$attempt_rate), group=1)+
+  geom_line()+
+   geom_point()+
+  labs(x = "Question", y = "Attempt Rate", 
+       title = "Attempt Rate")
+
+
+```
+
