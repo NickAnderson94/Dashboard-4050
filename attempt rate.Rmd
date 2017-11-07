@@ -41,7 +41,7 @@ D3$attempt_rate<-D3$num/29
 D3$questions<-c('Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8','Q9', 'Q10', 'Q11', 'Q12', 'Q13','Q14')
 ```
 
-#line chart
+#dot chart
 ```{r}
 D3_questions <- table(D3$questions)
 questions_levels <- names(D3_questions)[order(D3_questions)]
